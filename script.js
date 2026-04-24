@@ -1,5 +1,6 @@
 const storageKey = "printflow-team-state";
 const sessionKey = "printflow-team-session";
+const demoUsersSignature = "Kikis:1111|Revekka:2222|Eleni:3333";
 
 const initialData = {
   users: [
@@ -401,8 +402,19 @@ function loadState() {
     if (!raw) return structuredClone(initialData);
     const parsed = JSON.parse(raw);
 
+    const storedUsers = Array.isArray(parsed.users) ? parsed.users : [];
+    const storedSignature = storedUsers
+      .map((user) => `${user.name}:${user.pin}`)
+      .join("|");
+
+    if (storedSignature !== demoUsersSignature) {
+      localStorage.removeItem(storageKey);
+      localStorage.removeItem(sessionKey);
+      return structuredClone(initialData);
+    }
+
     return {
-      users: Array.isArray(parsed.users) ? parsed.users : structuredClone(initialData.users),
+      users: storedUsers.length ? storedUsers : structuredClone(initialData.users),
       messages: Array.isArray(parsed.messages)
         ? parsed.messages
         : structuredClone(initialData.messages),
