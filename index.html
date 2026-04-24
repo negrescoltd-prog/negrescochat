@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="el">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#102033" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="description"
+      content="Mobile-first app για συνεργάτες τυπογραφείου με σύνδεση χρηστών, επικοινωνία και ραντεβού."
+    />
+    <title>PrintFlow Team</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <section id="loginScreen" class="screen active">
+        <div class="mobile-card login-card">
+          <p class="kicker">PrintFlow Team</p>
+          <h1>Η ομάδα του τυπογραφείου σε ένα app</h1>
+          <p class="lead">
+            Σύνδεση χρηστών, γρήγορη εσωτερική επικοινωνία και διαχείριση
+            ραντεβού από κινητό.
+          </p>
+
+          <form id="loginForm" class="stack-form">
+            <label>
+              <span>Συνεργάτης</span>
+              <select id="userSelect" name="user" required></select>
+            </label>
+
+            <label>
+              <span>4ψήφιο PIN</span>
+              <input
+                id="pinInput"
+                name="pin"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="0000"
+                required
+              />
+            </label>
+
+            <button class="primary-btn" type="submit">Είσοδος στο app</button>
+          </form>
+
+          <div class="demo-hint">
+            <strong>Demo χρήστες</strong>
+            <p>Μαρία / 1111, Ανδρέας / 2222, Ελένη / 3333</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="mainScreen" class="screen">
+        <header class="topbar">
+          <div>
+            <p class="kicker">Mobile Workspace</p>
+            <h2 id="welcomeTitle">Καλημέρα</h2>
+          </div>
+          <div class="topbar-actions">
+            <button id="installButton" class="ghost-btn" type="button" hidden>Install</button>
+            <button id="logoutButton" class="ghost-btn" type="button">Έξοδος</button>
+          </div>
+        </header>
+
+        <section class="hero-band">
+          <article class="hero-panel primary">
+            <span class="small-label">Σήμερα</span>
+            <strong id="todayLabel"></strong>
+            <p id="heroSummary"></p>
+          </article>
+          <article class="hero-panel">
+            <span class="small-label">Επόμενο ραντεβού</span>
+            <strong id="nextAppointment"></strong>
+            <p id="nextAppointmentMeta"></p>
+          </article>
+        </section>
+
+        <nav class="tabbar" aria-label="Main navigation">
+          <button class="tab-link active" data-tab="chat" type="button">Επικοινωνία</button>
+          <button class="tab-link" data-tab="appointments" type="button">Ραντεβού</button>
+          <button class="tab-link" data-tab="team" type="button">Ομάδα</button>
+        </nav>
+
+        <main class="content-stack">
+          <section id="tab-chat" class="tab-panel active">
+            <div class="mobile-card">
+              <div class="section-head">
+                <div>
+                  <p class="kicker">Εσωτερική επικοινωνία</p>
+                  <h3>Ομαδικό chat συνεργατών</h3>
+                </div>
+                <span id="onlineCount" class="pill"></span>
+              </div>
+
+              <div id="messagesList" class="messages-list"></div>
+
+              <form id="messageForm" class="composer">
+                <input
+                  name="message"
+                  type="text"
+                  maxlength="220"
+                  placeholder="Γράψε ενημέρωση για παραγγελία, βάρδια ή παραλαβή"
+                  required
+                />
+                <button class="primary-btn" type="submit">Αποστολή</button>
+              </form>
+            </div>
+          </section>
+
+          <section id="tab-appointments" class="tab-panel">
+            <div class="mobile-card">
+              <div class="section-head">
+                <div>
+                  <p class="kicker">Ραντεβού</p>
+                  <h3>Καταχώρηση και πρόγραμμα</h3>
+                </div>
+                <span id="appointmentsCount" class="pill accent"></span>
+              </div>
+
+              <form id="appointmentForm" class="stack-form">
+                <label>
+                  <span>Πελάτης</span>
+                  <input name="clientName" type="text" placeholder="π.χ. Cafe Bloom" required />
+                </label>
+
+                <div class="split-grid">
+                  <label>
+                    <span>Τηλέφωνο</span>
+                    <input name="phone" type="tel" placeholder="99 123456" required />
+                  </label>
+                  <label>
+                    <span>Υπεύθυνος</span>
+                    <select name="owner" id="appointmentOwner"></select>
+                  </label>
+                </div>
+
+                <label>
+                  <span>Είδος ραντεβού</span>
+                  <select name="service" required>
+                    <option value="Συνάντηση νέας παραγγελίας">Συνάντηση νέας παραγγελίας</option>
+                    <option value="Έλεγχος μακέτας">Έλεγχος μακέτας</option>
+                    <option value="Παραλαβή έντυπου υλικού">Παραλαβή έντυπου υλικού</option>
+                    <option value="Επίσκεψη για δείγματα">Επίσκεψη για δείγματα</option>
+                  </select>
+                </label>
+
+                <div class="split-grid">
+                  <label>
+                    <span>Ημερομηνία</span>
+                    <input name="date" type="date" required />
+                  </label>
+                  <label>
+                    <span>Ώρα</span>
+                    <input name="time" type="time" required />
+                  </label>
+                </div>
+
+                <label>
+                  <span>Σημείωση</span>
+                  <textarea
+                    name="notes"
+                    rows="3"
+                    placeholder="Π.χ. να είναι έτοιμο δείγμα χαρτιού πριν το ραντεβού"
+                  ></textarea>
+                </label>
+
+                <button class="primary-btn" type="submit">Προσθήκη ραντεβού</button>
+              </form>
+
+              <div id="appointmentsList" class="appointments-list"></div>
+            </div>
+          </section>
+
+          <section id="tab-team" class="tab-panel">
+            <div class="mobile-card">
+              <div class="section-head">
+                <div>
+                  <p class="kicker">Ομάδα</p>
+                  <h3>Συνεργάτες & πρόσφατη δραστηριότητα</h3>
+                </div>
+                <span id="notificationsCount" class="pill"></span>
+              </div>
+
+              <div id="teamList" class="team-list"></div>
+              <div id="activityList" class="activity-list"></div>
+            </div>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <template id="messageTemplate">
+      <article class="message-card">
+        <div class="message-meta">
+          <div class="avatar-chip"></div>
+          <div>
+            <strong class="message-author"></strong>
+            <p class="message-role"></p>
+          </div>
+          <span class="message-time"></span>
+        </div>
+        <p class="message-body"></p>
+      </article>
+    </template>
+
+    <template id="appointmentTemplate">
+      <article class="list-card">
+        <div class="list-copy">
+          <strong class="appointment-client"></strong>
+          <p class="appointment-service"></p>
+          <p class="appointment-notes"></p>
+        </div>
+        <div class="list-side">
+          <span class="pill appointment-date"></span>
+          <span class="list-owner"></span>
+        </div>
+      </article>
+    </template>
+
+    <template id="teamTemplate">
+      <article class="list-card">
+        <div class="message-meta team-meta">
+          <div class="avatar-chip"></div>
+          <div>
+            <strong class="team-name"></strong>
+            <p class="team-role"></p>
+          </div>
+        </div>
+        <span class="pill team-status"></span>
+      </article>
+    </template>
+
+    <template id="activityTemplate">
+      <article class="activity-card">
+        <strong class="activity-title"></strong>
+        <p class="activity-body"></p>
+      </article>
+    </template>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

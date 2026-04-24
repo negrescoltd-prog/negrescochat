@@ -1,0 +1,18 @@
+{
+  "name": "PrintFlow Team",
+  "short_name": "PrintFlow",
+  "description": "Mobile-first app για συνεργάτες τυπογραφείου με login, επικοινωνία και ραντεβού.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#102033",
+  "theme_color": "#102033",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
