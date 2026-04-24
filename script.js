@@ -3,9 +3,9 @@ const sessionKey = "printflow-team-session";
 
 const initialData = {
   users: [
-    { id: "u1", name: "Μαρία", role: "Υπεύθυνη Παραγγελιών", pin: "1111", status: "online" },
-    { id: "u2", name: "Ανδρέας", role: "Γραφιστικό Τμήμα", pin: "2222", status: "online" },
-    { id: "u3", name: "Ελένη", role: "Παραγωγή", pin: "3333", status: "busy" },
+    { id: "u1", name: "Kikis", role: "Υπεύθυνη Παραγγελιών", pin: "1111", status: "online" },
+    { id: "u2", name: "Revekka", role: "Γραφιστικό Τμήμα", pin: "2222", status: "online" },
+    { id: "u3", name: "Eleni", role: "Παραγωγή", pin: "3333", status: "busy" },
   ],
   messages: [
     {
